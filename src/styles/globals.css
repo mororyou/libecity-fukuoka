@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.border-title {
+  position: relative;
+  padding: 0.3em;
+  @apply flex items-center;
+}
+
+
+.border-title:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 4px;
+  background: repeating-linear-gradient(
+    -45deg,
+    #727bf0,
+    #727bf0 2px,
+    rgba(191, 219, 254, 0.25) 3px,
+    rgba(191, 219, 254, 0.25) 6px
+  );
+  @apply bg-opacity-25
+}
