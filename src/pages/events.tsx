@@ -1,13 +1,40 @@
-import { Box, Button, Modal, TextField } from '@mui/material'
-import { FC, useState } from 'react'
+import {
+  Slide,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  ToggleButton,
+  ToggleButtonGroup,
+} from '@mui/material'
+import { format } from 'date-fns'
+import { ja } from 'date-fns/locale'
+import { FC, forwardRef, useState } from 'react'
 import Layout from '../components/Layout'
 import Title from '../components/Title'
+import { TransitionProps } from '@mui/material/transitions'
+// import Slide from '@mui/material/Slide'
 
+const Transition = forwardRef(function Transition(
+  props: TransitionProps & {
+    children: React.ReactElement
+  },
+  ref: React.Ref<unknown>
+) {
+  return <Slide direction="up" ref={ref} {...props} />
+})
 const Events = () => {
-
   const [values, setValues] = useState({
     title: '',
-    date: '',
+    date: format(new Date(), 'yyyy-MM-dd', {
+      locale: ja,
+    }),
     time: '',
     location: '',
     organizer: '',
@@ -15,12 +42,18 @@ const Events = () => {
     event: '',
     community: '',
     comment: '',
+    status: 1,
     compflg: 0,
   })
 
   const handleChange =
     (props: any) => (e: React.ChangeEvent<HTMLInputElement>) => {
       setValues({ ...values, [props]: e.target.value })
+    }
+
+  const handleClickChange =
+    (props: any) => (event: React.MouseEvent<HTMLElement>, value: string) => {
+      setValues({ ...values, [props]: value })
     }
 
   // Modal
@@ -35,24 +68,29 @@ const Events = () => {
         image={EventIcon}
         component={<EventAddBtn onClick={handleOpen} />}
       />
-      <Modal
+
+      <Dialog
+        fullScreen
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        TransitionComponent={Transition}
+        scroll={'body'}
       >
-        <Box className="flex min-h-screen min-w-full items-start justify-center pt-12 md:pt-20">
-          <div className="h-full w-11/12 rounded-md bg-white md:w-8/12">
-            <div className="flex items-center justify-between border-b-2 border-blue-700 bg-opacity-80 py-2 px-4 md:py-3">
-              <h3 className="font-mono text-lg text-blue-800">イベント追加</h3>
+        <AppBar sx={{ position: 'relative' }}>
+          <Toolbar>
+            <IconButton
+              edge="start"
+              color="inherit"
+              onClick={handleClose}
+              aria-label="close"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="h-6 w-6 cursor-pointer text-blue-800"
-                onClick={handleClose}
+                className="h-6 w-6"
               >
                 <path
                   strokeLinecap="round"
@@ -60,7 +98,18 @@ const Events = () => {
                   d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-            </div>
+            </IconButton>
+            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+              イベント登録
+            </Typography>
+          </Toolbar>
+        </AppBar>
+
+        <DialogContent
+          id="alert-dialog-slide-description"
+          className="flex flex-col p-4"
+        >
+          <div className="h-full w-11/12 rounded-md bg-white md:w-8/12">
             <div className="flex flex-col gap-y-5 p-4 md:gap-y-6 md:p-8">
               <div className="w-full md:w-3/4">
                 <TextField
@@ -82,7 +131,7 @@ const Events = () => {
                     onChange={handleChange('date')}
                   />
                 </div>
-                <div className="md:w-3/8 w-1/2 pr-2 md:pr-4">
+                <div className="md:w-3/8 w-2/3 pr-2 md:pr-4">
                   <TextField
                     label="時間"
                     size="small"
@@ -116,7 +165,7 @@ const Events = () => {
 
               <div className="w-full md:w-3/4">
                 <TextField
-                  label="開催者"
+                  label="主催者"
                   size="small"
                   fullWidth
                   value={values.organizer}
@@ -144,6 +193,33 @@ const Events = () => {
                 />
               </div>
 
+              <div className="w-full">
+                <ToggleButtonGroup
+                  color="primary"
+                  size="small"
+                  exclusive
+                  value={values.status}
+                  onChange={handleClickChange('status')}
+                  aria-label="Platform"
+                >
+                  <ToggleButton className="md:px-4" value="0">
+                    募集前
+                  </ToggleButton>
+                  <ToggleButton className="md:px-4" value="1">
+                    募集中
+                  </ToggleButton>
+                  <ToggleButton className="md:px-4" value="2">
+                    キャンセル待ち
+                  </ToggleButton>
+                  <ToggleButton className="md:px-4" value="80">
+                    終了
+                  </ToggleButton>
+                  <ToggleButton className="md:px-4" value="99">
+                    イベント中止
+                  </ToggleButton>
+                </ToggleButtonGroup>
+              </div>
+
               <div className="w-full md:w-3/4">
                 <TextField
                   label="メモ"
@@ -157,8 +233,8 @@ const Events = () => {
               <Button variant="outlined">登録</Button>
             </div>
           </div>
-        </Box>
-      </Modal>
+        </DialogContent>
+      </Dialog>
     </Layout>
   )
 }

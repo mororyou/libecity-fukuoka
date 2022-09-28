@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react"
+import { FC, ReactNode } from 'react'
 
 type Props = {
   title: string
@@ -10,11 +10,11 @@ const Title: FC<Props> = ({ title, image, component }) => (
     <div className="mb-1 flex w-full items-center md:mb-3">
       {image}
       <div className="ml-3 flex w-full items-center align-middle text-lg font-medium tracking-widest md:text-xl md:font-medium">
-        <h1 className="whitespace-nowrap text-gray-700 font-mono text-bold">{title}</h1>
+        <h1 className="text-bold whitespace-nowrap font-mono text-gray-700">
+          {title}
+        </h1>
       </div>
-      <div className="w-48 ml-auto">
-        {component && component}
-      </div>
+      <div className="ml-auto w-48">{component && component}</div>
     </div>
   </div>
 )
