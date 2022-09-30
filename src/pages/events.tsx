@@ -1,34 +1,13 @@
-import {
-  Slide,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  TextField,
-  AppBar,
-  Toolbar,
-  IconButton,
-  Typography,
-  ToggleButton,
-  ToggleButtonGroup,
-} from '@mui/material'
+import { Button } from '@mui/material'
 import { format } from 'date-fns'
 import { ja } from 'date-fns/locale'
-import { FC, forwardRef, useState } from 'react'
 import Layout from '../components/Layout'
 import Title from '../components/Title'
-import { TransitionProps } from '@mui/material/transitions'
-// import Slide from '@mui/material/Slide'
+import { FC, useEffect, useState } from 'react'
+import EventAddDialog from '../components/Event/EventAddDialog'
+import { getEvents, store } from '../libs/event'
+import EventTable from '../components/Event/EventTable'
 
-const Transition = forwardRef(function Transition(
-  props: TransitionProps & {
-    children: React.ReactElement
-  },
-  ref: React.Ref<unknown>
-) {
-  return <Slide direction="up" ref={ref} {...props} />
-})
 const Events = () => {
   const [values, setValues] = useState({
     title: '',
@@ -43,8 +22,19 @@ const Events = () => {
     community: '',
     comment: '',
     status: 1,
-    compflg: 0,
+    compflg: false,
   })
+  // Event
+  const [events, setEvents] = useState([])
+  const [keyword, setKeyword] = useState('')
+
+  // Modal
+  const [open, setOpen] = useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
+
+  // Loading
+  const [loading, setLoading] = useState(false)
 
   const handleChange =
     (props: any) => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,211 +42,46 @@ const Events = () => {
     }
 
   const handleClickChange =
-    (props: any) => (event: React.MouseEvent<HTMLElement>, value: string) => {
+    (props: any) => (e: React.MouseEvent<HTMLElement>, value: string) => {
       setValues({ ...values, [props]: value })
     }
 
-  // Modal
-  const [open, setOpen] = useState(false)
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+  const submitHandler = async (e: any) => {
+    e.preventDefault()
+    const res = await store(values)
+  }
+
+  const load = async () => {
+    await setLoading(true)
+    const res: any = await getEvents()
+    setEvents(res)
+    await setLoading(false)
+  }
+
+  useEffect(() => {
+    load()
+  }, [])
 
   return (
     <Layout>
       <Title
         title="イベント一覧"
-        image={EventIcon}
         component={<EventAddBtn onClick={handleOpen} />}
       />
-
-      <Dialog
-        fullScreen
+      <EventAddDialog
+        values={values}
         open={open}
-        onClose={handleClose}
-        TransitionComponent={Transition}
-        scroll={'body'}
-      >
-        <AppBar sx={{ position: 'relative' }}>
-          <Toolbar>
-            <IconButton
-              edge="start"
-              color="inherit"
-              onClick={handleClose}
-              aria-label="close"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="h-6 w-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-            </IconButton>
-            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              イベント登録
-            </Typography>
-          </Toolbar>
-        </AppBar>
-
-        <DialogContent
-          id="alert-dialog-slide-description"
-          className="flex flex-col p-4"
-        >
-          <div className="h-full w-11/12 rounded-md bg-white md:w-8/12">
-            <div className="flex flex-col gap-y-5 p-4 md:gap-y-6 md:p-8">
-              <div className="w-full md:w-3/4">
-                <TextField
-                  label="イベントタイトル"
-                  size="small"
-                  fullWidth
-                  value={values.title}
-                  onChange={handleChange('title')}
-                />
-              </div>
-              <div className="flex flex-wrap gap-y-4">
-                <div className="w-full md:w-1/3 md:pr-4">
-                  <TextField
-                    label="日程"
-                    size="small"
-                    fullWidth
-                    type="date"
-                    value={values.date}
-                    onChange={handleChange('date')}
-                  />
-                </div>
-                <div className="md:w-3/8 w-2/3 pr-2 md:pr-4">
-                  <TextField
-                    label="時間"
-                    size="small"
-                    fullWidth
-                    value={values.time}
-                    onChange={handleChange('time')}
-                  />
-                </div>
-              </div>
-              <div className="flex flex-wrap gap-y-4">
-                <div className="w-full md:w-2/3 md:pr-4">
-                  <TextField
-                    label="開催場所"
-                    size="small"
-                    fullWidth
-                    value={values.location}
-                    onChange={handleChange('location')}
-                  />
-                </div>
-                <div className="w-1/2 md:w-1/3 md:pr-4">
-                  <TextField
-                    label="募集人数"
-                    size="small"
-                    fullWidth
-                    type="number"
-                    value={values.people}
-                    onChange={handleChange('people')}
-                  />
-                </div>
-              </div>
-
-              <div className="w-full md:w-3/4">
-                <TextField
-                  label="主催者"
-                  size="small"
-                  fullWidth
-                  value={values.organizer}
-                  onChange={handleChange('organizer')}
-                />
-              </div>
-
-              <div className="w-full md:w-3/4">
-                <TextField
-                  label="対象コミュニティ"
-                  size="small"
-                  fullWidth
-                  value={values.community}
-                  onChange={handleChange('community')}
-                />
-              </div>
-
-              <div className="w-full md:w-3/4">
-                <TextField
-                  label="リンク"
-                  size="small"
-                  fullWidth
-                  value={values.event}
-                  onChange={handleChange('event')}
-                />
-              </div>
-
-              <div className="w-full">
-                <ToggleButtonGroup
-                  color="primary"
-                  size="small"
-                  exclusive
-                  value={values.status}
-                  onChange={handleClickChange('status')}
-                  aria-label="Platform"
-                >
-                  <ToggleButton className="md:px-4" value="0">
-                    募集前
-                  </ToggleButton>
-                  <ToggleButton className="md:px-4" value="1">
-                    募集中
-                  </ToggleButton>
-                  <ToggleButton className="md:px-4" value="2">
-                    キャンセル待ち
-                  </ToggleButton>
-                  <ToggleButton className="md:px-4" value="80">
-                    終了
-                  </ToggleButton>
-                  <ToggleButton className="md:px-4" value="99">
-                    イベント中止
-                  </ToggleButton>
-                </ToggleButtonGroup>
-              </div>
-
-              <div className="w-full md:w-3/4">
-                <TextField
-                  label="メモ"
-                  fullWidth
-                  multiline
-                  rows={2}
-                  defaultValue={values.comment}
-                  onChange={handleChange('comment')}
-                />
-              </div>
-              <Button variant="outlined">登録</Button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+        handleClose={handleClose}
+        handleChange={handleChange}
+        handleClickChange={handleClickChange}
+        submitHandler={submitHandler}
+      />
+      {events && <EventTable events={events} />}
     </Layout>
   )
 }
 
 export default Events
-
-const EventIcon = (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    strokeWidth={2}
-    stroke="currentColor"
-    className="h-8 w-8"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 01-1.161.886l-.143.048a1.107 1.107 0 00-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 01-1.652.928l-.679-.906a1.125 1.125 0 00-1.906.172L4.5 15.75l-.612.153M12.75 3.031a9 9 0 00-8.862 12.872M12.75 3.031a9 9 0 016.69 14.036m0 0l-.177-.529A2.25 2.25 0 0017.128 15H16.5l-.324-.324a1.453 1.453 0 00-2.328.377l-.036.073a1.586 1.586 0 01-.982.816l-.99.282c-.55.157-.894.702-.8 1.267l.073.438c.08.474.49.821.97.821.846 0 1.598.542 1.865 1.345l.215.643m5.276-3.67a9.012 9.012 0 01-5.276 3.67m0 0a9 9 0 01-10.275-4.835M15.75 9c0 .896-.393 1.7-1.016 2.25"
-    />
-  </svg>
-)
 
 type BtnProps = {
   onClick: () => void
@@ -264,7 +89,7 @@ type BtnProps = {
 
 const EventAddBtn: FC<BtnProps> = ({ onClick }) => {
   return (
-    <Button variant="outlined" onClick={onClick} size="small">
+    <Button variant="contained" onClick={onClick} className="themeBtn">
       イベント追加
     </Button>
   )

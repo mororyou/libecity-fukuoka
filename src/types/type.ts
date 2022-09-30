@@ -5,7 +5,8 @@ export type Event = {
   location: string
   organizer: string
   people: number
-  url: string
+  event: string
+  community: string
   comment: string
   status: number
   compflg: boolean

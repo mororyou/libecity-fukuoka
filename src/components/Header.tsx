@@ -1,13 +1,17 @@
+import Image from 'next/image'
 import Link from 'next/link'
 
 const Header = () => (
-  <nav className=" bg-blue-900 bg-opacity-70 px-2 py-1 sm:px-4">
+  <nav className="bg-themeMainColor px-2 py-3 sm:px-4">
     <div className="container mx-auto flex flex-wrap items-center justify-between">
       <Link href={'/dashboard'}>
         <a className="flex items-center">
-          <span className="self-center whitespace-nowrap text-xl font-semibold text-white">
-            Fukuoka Libecity
-          </span>
+          <Image
+            src={'/images/libecity/libecity_logo.png'}
+            width="170.83"
+            height="40"
+            alt="リベシティロゴ"
+          />
         </a>
       </Link>
       <button
@@ -35,28 +39,13 @@ const Header = () => (
         <ul className="mt-4 flex flex-col p-4 md:mt-0 md:flex-row md:space-x-8 md:border-0 md:text-sm md:font-medium">
           <li>
             <Link href={'/dashboard'}>
-              <a className="navi-link">Dashboard</a>
+              <a className="navi-link">ダッシュボード</a>
             </Link>
           </li>
           <li>
             <Link href={'/events'}>
-              <a className="navi-link">Event</a>
+              <a className="navi-link">イベント一覧</a>
             </Link>
-          </li>
-          <li>
-            <a href="#" className="navi-link">
-              Services
-            </a>
-          </li>
-          <li>
-            <a href="#" className="navi-link">
-              Pricing
-            </a>
-          </li>
-          <li>
-            <a href="#" className="navi-link">
-              Contact
-            </a>
           </li>
         </ul>
       </div>

@@ -4,7 +4,8 @@ import { ErrorTable, Spread, TimeTable } from '../../types/type'
 import { supabase } from '../../utils/supabase'
 
 // シート名
-const SHEET_NAME = 'フォームの回答 1'
+const SHEET_NAME = process.env.NEXT_PUBLIC_SPREAD_SHEET_NAME as string
+
 // 予約登録時回答内容
 const ENTRY_MODE_VALUE = '新しく予約をする'
 
