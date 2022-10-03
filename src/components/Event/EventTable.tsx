@@ -60,13 +60,15 @@ const EventTable: FC<Props> = ({ events, loading }) => {
       columns={columns}
       data={events}
       className="my-4"
-      fixedHeader
-      fixedHeaderScrollHeight="500px"
       pagination
       progressPending={loading}
       progressComponent={<CustomLoader />}
       expandableRows
+      expandOnRowClicked={true}
+      expandableRowsHideExpander={true}
       expandableRowsComponent={ExpandedComponent}
+      highlightOnHover={true}
+      striped={true}
     />
   )
 }
