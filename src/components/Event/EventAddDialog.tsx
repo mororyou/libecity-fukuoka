@@ -87,10 +87,7 @@ const EventAddDialog: FC<Props> = ({
           </Toolbar>
         </AppBar>
 
-        <DialogContent
-          id="alert-dialog-slide-description"
-          className="grid grid-cols-12 p-4"
-        >
+        <DialogContent id="alert-dialog-slide-description" className="grid p-4">
           <div className="col-span-11 h-full w-11/12 rounded-md bg-white md:col-span-8">
             <div className="flex flex-col gap-y-5 p-4 md:gap-y-6 md:p-8">
               <div className="w-full md:w-3/4">
@@ -177,26 +174,26 @@ const EventAddDialog: FC<Props> = ({
 
               <div className="w-full">
                 <ToggleButtonGroup
-                  color="primary"
+                  className="w-full md:w-1/2 text-themeMainColor"
                   size="small"
                   exclusive
                   value={values.status}
                   onChange={handleClickChange('status')}
                   aria-label="Platform"
                 >
-                  <ToggleButton className="md:px-4" value="0">
+                  <ToggleButton className="w-[20%]" value="0">
                     募集前
                   </ToggleButton>
-                  <ToggleButton className="md:px-4" value="1">
+                  <ToggleButton className="w-[20%]" value="1">
                     募集中
                   </ToggleButton>
-                  <ToggleButton className="md:px-4" value="2">
+                  <ToggleButton className="w-[20%]" value="2">
                     キャンセル待ち
                   </ToggleButton>
-                  <ToggleButton className="md:px-4" value="80">
+                  <ToggleButton className="w-[20%]" value="80">
                     終了
                   </ToggleButton>
-                  <ToggleButton className="md:px-4" value="99">
+                  <ToggleButton className="w-[20%]" value="99">
                     イベント中止
                   </ToggleButton>
                 </ToggleButtonGroup>

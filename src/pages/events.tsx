@@ -76,7 +76,9 @@ const Events = () => {
         handleClickChange={handleClickChange}
         submitHandler={submitHandler}
       />
-      {events && <EventTable events={events} />}
+      <div className='w-full flex flex-col items-start'>
+        {events && <EventTable events={events} loading={loading} />}
+      </div>
     </Layout>
   )
 }
@@ -89,7 +91,7 @@ type BtnProps = {
 
 const EventAddBtn: FC<BtnProps> = ({ onClick }) => {
   return (
-    <Button variant="contained" onClick={onClick} className="themeBtn">
+    <Button variant="contained" onClick={onClick} size="small" className="themeBtn">
       イベント追加
     </Button>
   )

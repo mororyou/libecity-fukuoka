@@ -14,6 +14,7 @@ export const getEvents = async () => {
   const { data, error } = await supabase
     .from('events')
     .select('*', { count: 'exact' })
+    .order('date', { ascending: false })
 
   if (error) {
     return error

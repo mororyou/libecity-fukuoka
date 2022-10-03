@@ -1,33 +1,81 @@
-import { DataGrid, GridColDef } from '@mui/x-data-grid'
-import { FC } from 'react'
+import { format } from 'date-fns'
+import { ja } from 'date-fns/locale'
+import { FC, useMemo } from 'react'
+import DataTable, { ExpanderComponentProps } from 'react-data-table-component'
 import { Event } from '../../types/type'
-
 type Props = {
   events: Event[]
+  loading: boolean
 }
 
-const EventTable: FC<Props> = ({ events }) => {
-  const columns: GridColDef[] = [
-    { field: 'date', headerName: '日付', width: 128 },
-    { field: 'title', headerName: 'タイトル', width: 256 },
-    { field: 'time', headerName: '開催時間', width: 180 },
-    { field: 'location', headerName: '開催場所', width: 120 },
-    { field: 'organizer', headerName: '主催者', width: 128 },
-    { field: 'people', headerName: '応募人数', width: 90 },
-    { field: 'status', headerName: '募集状況', width: 90 },
-    { field: 'comment', headerName: 'コメント', width: 90 },
-    { field: 'compflg', headerName: '終了', width: 90 },
-  ]
+const EventTable: FC<Props> = ({ events, loading }) => {
+  const columns = useMemo(
+    () => [
+      {
+        id: 'date',
+        name: '日付',
+        width: '140px',
+        selector: (row: Event) =>
+          format(new Date(row.date), 'yyyy/MM/dd(E)', { locale: ja }),
+        conditionalCellStyles: [
+          {
+            when: (row: Event) =>
+              format(new Date(row.date), 'E', { locale: ja }) == '土',
+            style: {
+              color: 'blue',
+            },
+          },
+          {
+            when: (row: Event) =>
+              format(new Date(row.date), 'E', { locale: ja }) == '日',
+            style: {
+              color: 'tomato',
+            },
+          },
+        ],
+      },
+      {
+        id: 'time',
+        name: '開催時間',
+        width: '115px',
+        selector: (row: Event) => row.time,
+      },
+      {
+        id: 'title',
+        name: 'タイトル',
+        width: '400px',
+        selector: (row: Event) => row.title,
+      },
+    ],
+    []
+  )
+
+  // data provides access to your row data
+  const ExpandedComponent: FC<ExpanderComponentProps<Event>> = ({ data }) => {
+    return <pre>{JSON.stringify(data, null, 2)}</pre>
+  }
 
   return (
-    <DataGrid
-      className="w-full bg-white"
-      headerHeight={40}
-      rowHeight={40}
-      rows={events}
+    <DataTable
       columns={columns}
+      data={events}
+      className="my-4"
+      fixedHeader
+      fixedHeaderScrollHeight="500px"
+      pagination
+      progressPending={loading}
+      progressComponent={<CustomLoader />}
+      expandableRows
+      expandableRowsComponent={ExpandedComponent}
     />
   )
 }
 
 export default EventTable
+
+
+const CustomLoader = () => (
+  <div>
+    loading
+  </div>
+)
