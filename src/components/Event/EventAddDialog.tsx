@@ -174,7 +174,7 @@ const EventAddDialog: FC<Props> = ({
 
               <div className="w-full">
                 <ToggleButtonGroup
-                  className="w-full md:w-1/2 text-themeMainColor"
+                  className="w-full md:w-2/3 text-themeMainColor"
                   size="small"
                   exclusive
                   value={values.status}

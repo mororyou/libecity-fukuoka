@@ -5,6 +5,7 @@ export type Event = {
   location: string
   organizer: string
   people: number
+  request: number
   event: string
   community: string
   comment: string

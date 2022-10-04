@@ -18,6 +18,7 @@ const Events = () => {
     location: '',
     organizer: '',
     people: 0,
+    request: 0,
     event: '',
     community: '',
     comment: '',
@@ -49,6 +50,7 @@ const Events = () => {
   const submitHandler = async (e: any) => {
     e.preventDefault()
     const res = await store(values)
+    setOpen(false)
   }
 
   const load = async () => {
@@ -76,7 +78,7 @@ const Events = () => {
         handleClickChange={handleClickChange}
         submitHandler={submitHandler}
       />
-      <div className='w-full flex flex-col items-start'>
+      <div className="flex w-full flex-col items-start">
         {events && <EventTable events={events} loading={loading} />}
       </div>
     </Layout>

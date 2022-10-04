@@ -13,7 +13,10 @@ export const store = async (value: Event) => {
 export const getEvents = async () => {
   const { data, error } = await supabase
     .from('events')
-    .select('*', { count: 'exact' })
+    .select(
+      'title, date, time, location, organizer, community, event, status, comment',
+      { count: 'exact' }
+    )
     .order('date', { ascending: false })
 
   if (error) {
