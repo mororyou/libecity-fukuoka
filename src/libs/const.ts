@@ -2,7 +2,7 @@ export const items: { [key: string]: any } = {
   location: '開催場所',
   organizer: '主催者',
   community: 'コミュニティ',
-  event: 'イベント',
+  event: 'イベントリンク',
   comment: '備考',
 }
 

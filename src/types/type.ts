@@ -1,4 +1,5 @@
 export type Event = {
+  id: string | Number
   title: string
   date: string
   time: string
