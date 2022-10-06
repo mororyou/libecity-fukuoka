@@ -13,7 +13,7 @@ import {
 } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import { FC, forwardRef, useState } from 'react'
+import { FC, forwardRef } from 'react'
 import { TransitionProps } from '@mui/material/transitions'
 import { Event } from '../../types/type'
 
@@ -87,8 +87,8 @@ const EventAddDialog: FC<Props> = ({
           </Toolbar>
         </AppBar>
 
-        <DialogContent id="alert-dialog-slide-description" className="grid p-4">
-          <div className="col-span-11 h-full w-11/12 rounded-md bg-white md:col-span-8">
+        <DialogContent id="alert-dialog-slide-description" className="p-4">
+          <div className="col-span-12 h-full w-11/12 rounded-md bg-white md:col-span-8">
             <div className="flex flex-col gap-y-5 p-4 md:gap-y-6 md:p-8">
               <div className="w-full md:w-3/4">
                 <TextField
@@ -174,26 +174,26 @@ const EventAddDialog: FC<Props> = ({
 
               <div className="w-full">
                 <ToggleButtonGroup
-                  className="w-full md:w-2/3 text-themeMainColor"
+                  className="w-full text-themeMainColor md:w-2/3"
                   size="small"
                   exclusive
                   value={values.status}
                   onChange={handleClickChange('status')}
                   aria-label="Platform"
                 >
-                  <ToggleButton className="w-[20%]" value="0">
+                  <ToggleButton className="w-[20%]" value={0}>
                     募集前
                   </ToggleButton>
-                  <ToggleButton className="w-[20%]" value="1">
+                  <ToggleButton className="w-[20%]" value={1}>
                     募集中
                   </ToggleButton>
-                  <ToggleButton className="w-[20%]" value="2">
+                  <ToggleButton className="w-[20%]" value={2}>
                     キャンセル待ち
                   </ToggleButton>
-                  <ToggleButton className="w-[20%]" value="80">
+                  <ToggleButton className="w-[20%]" value={80}>
                     終了
                   </ToggleButton>
-                  <ToggleButton className="w-[20%]" value="99">
+                  <ToggleButton className="w-[20%]" value={99}>
                     イベント中止
                   </ToggleButton>
                 </ToggleButtonGroup>
@@ -205,15 +205,15 @@ const EventAddDialog: FC<Props> = ({
                   fullWidth
                   multiline
                   rows={2}
-                  defaultValue={values.comment}
+                  value={values.comment}
                   onChange={handleChange('comment')}
                 />
               </div>
             </div>
           </div>
-          <div className="col-span-4 px-4 md:flex md:items-end md:justify-end md:py-8">
+          <div className=" col-span-full px-4 md:flex md:items-end md:justify-end md:py-8">
             <Button variant="contained" type="submit" className="themeBtn">
-              登録
+              {values.id === 0 ? '登 録' : '更 新'}
             </Button>
           </div>
         </DialogContent>
