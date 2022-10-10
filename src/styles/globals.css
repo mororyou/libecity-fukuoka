@@ -25,14 +25,63 @@
   @apply bg-opacity-25;
 }
 
-.navi-link {
-  @apply
-    block rounded py-3 px-5 text-white
-    border border-white 
-    hover:bg-white hover:bg-opacity-40
-    md:py-[0.3rem] md:px-3;
+.eventStatusLabelBefore {
+  background-color: rgba(0, 132, 204, 1);
+  @apply rounded-[3px] text-white py-[2px] px-[10px] text-[10px] font-semibold;
 }
 
-.themeBtn {
- @apply bg-themeMainColor text-white hover:bg-opacity-80 hover:bg-themeMainColor;
+.eventStatusLabelProgress {
+  background-color: rgba(0, 204, 153, 1);
+  @apply rounded-[3px] text-white py-[2px] px-[10px] text-[10px] font-semibold;
+}
+
+.eventStatusLabelCancel {
+  background-color: rgba(204, 0, 51, 1);
+  @apply rounded-[3px] text-white py-[2px] px-[10px] text-[10px] font-semibold;
+}
+
+.eventStatusLabelExit {
+  background-color: rgba(204, 204, 204, 1);
+  @apply rounded-[3px] text-white py-[2px] px-[10px] text-[10px] font-semibold;
+}
+
+.eventStatusLabelMedium {
+  background-color: rgba(204, 112, 0, 1);
+  @apply rounded-[3px] text-white py-[2px] px-[10px] text-[10px] font-semibold;
+}
+
+.showButton {
+  width: 55px;
+  height: 55px;
+  background: #70975B;
+  transform: translate(-50%, -50%) rotate(0deg);
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 100;
+  transition: 0.4s cubic-bezier(0.2, 0.6, 0.3, 1.1);
+}
+
+.showButton:after {
+  content: '';
+  transform: translate(-50%, -50%);
+  height: 2px;
+  width: 50%;
+  background: white;
+}
+
+.showButton:before {
+  content: '';
+  transform: translate(-50%, -50%);
+  height: 50%;
+  width: 2px;
+  background: white;
+}
+
+.showButton.clicked {
+  transform: translate(-50%, -50%) rotate(360deg);
+  background: #CC2A41;
+}
+
+.showButton.clicked:before {
+  width: 0;
 }

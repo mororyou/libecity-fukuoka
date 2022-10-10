@@ -7,8 +7,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        themeMainColor: '#384860',
-        themeBgColor: '#e8f5f5',
+        themeMainColor: '#3550D4',
+        themeBgColor: '#F4FAFA',
+        themeBtnColor: '#E9546B',
+        themeTitleText: '#333333',
+        themeDetailBgColor: '#DBDEE1',
       },
     },
   },

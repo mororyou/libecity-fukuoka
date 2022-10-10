@@ -1,0 +1,12 @@
+.header {
+  background: transparent linear-gradient(90deg, #3550D4 0%, #B2EAFF 100%) 0% 0% no-repeat padding-box;
+  @apply py-[25px] px-[30px]
+}
+
+.navilink {
+  @apply w-[200px] h-[46px] border border-solid border-white rounded-[3px] text-white flex items-center justify-center cursor-pointer hover:bg-white hover:text-themeMainColor font-semibold
+}
+
+.navilink_active {
+  @apply w-[200px] h-[46px] border border-solid border-white rounded-[3px] text-themeMainColor bg-white flex items-center justify-center font-semibold
+}

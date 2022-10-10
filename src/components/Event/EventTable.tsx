@@ -1,3 +1,4 @@
+import { Style } from '@mui/icons-material'
 import { Button } from '@mui/material'
 import { format } from 'date-fns'
 import { ja } from 'date-fns/locale'
@@ -24,7 +25,7 @@ const EventTable: FC<Props> = ({ events, loading, editBtnClickHandler }) => {
       {
         id: 'status',
         name: '募集状況',
-        width: '115px',
+        width: '130px',
         cell: (row: Event) => <EventCellStatusComponent event={row} />,
       },
       {
@@ -39,7 +40,7 @@ const EventTable: FC<Props> = ({ events, loading, editBtnClickHandler }) => {
         width: '',
         cell: (row: Event) => {
           return (
-            <div className="ml-auto pr-16">
+            <div className="ml-auto flex items-center justify-end pr-[20px]">
               <Button
                 variant="outlined"
                 className="border-themeMainColor text-sm text-themeMainColor"
@@ -111,10 +112,10 @@ const EventDetailComponent: FC<ExpanderComponentProps<Event>> = ({ data }) => {
             case 'event':
               return (
                 <dl
-                  className="flex w-full flex-row border-b border-themeMainColor border-opacity-30"
+                  className="flex w-full flex-row border-b border-themeTitleText border-opacity-30"
                   key={index}
                 >
-                  <dt className="w-28 bg-themeMainColor bg-opacity-20 py-2 px-4 text-xs font-semibold md:w-2/12 md:px-8">
+                  <dt className="w-28 bg-themeDetailBgColor py-[10px] px-4 text-xs font-semibold md:w-[216px] md:px-8">
                     {label}
                   </dt>
                   <dd className="py-2 pl-2 text-xs">
@@ -132,10 +133,10 @@ const EventDetailComponent: FC<ExpanderComponentProps<Event>> = ({ data }) => {
             default:
               return (
                 <dl
-                  className="flex w-full flex-row border-b border-themeMainColor border-opacity-30"
+                  className="flex w-full flex-row border-b border-themeTitleText border-opacity-30"
                   key={index}
                 >
-                  <dt className="w-28 bg-themeMainColor bg-opacity-20 py-2 px-4 text-xs font-semibold md:w-2/12 md:px-8">
+                  <dt className="w-28 bg-themeDetailBgColor py-[10px] px-4 text-xs font-semibold md:w-[216px] md:px-8">
                     {label}
                   </dt>
                   <dd className="py-2 pl-2 text-xs">{value as string}</dd>
@@ -144,6 +145,14 @@ const EventDetailComponent: FC<ExpanderComponentProps<Event>> = ({ data }) => {
           }
         }
       })}
+      <div className="w-full border-b border-themeTitleText border-opacity-30 bg-white py-4 pr-[20px] flex items-center justify-start md:justify-end">
+        <Button
+          className="h-8 md:h-8 w-[120px] rounded bg-themeBtnColor text-xs text-white"
+          variant="contained"
+        >
+          編集する
+        </Button>
+      </div>
     </div>
   )
 }
@@ -178,10 +187,34 @@ const EventCellDataComponent: FC<CellProps> = ({ event }) => {
 }
 
 const EventCellStatusComponent: FC<CellProps> = ({ event }) => {
+  let statusStyle = ''
+  switch (event.status) {
+    case 0:
+      statusStyle = 'eventStatusLabelBefore'
+      break
+    case 1:
+      statusStyle = 'eventStatusLabelProgress'
+      break
+    case 2:
+      statusStyle = 'eventStatusLabelCancel'
+      break
+    case 80:
+      statusStyle = 'eventStatusLabelExit'
+      break
+    case 99:
+      statusStyle = 'eventStatusLabelMedium'
+      break
+  }
   return (
     <div className="flex flex-col gap-y-1 ">
-      <p className="font-semibold">{statusItems[event.status]}</p>
-      <p className='text-xs'>募集人数：{event.people}</p>
+      <div>
+        <span className={statusStyle}>{statusItems[event.status]}</span>
+      </div>
+      <p className="text-xs">募集人数：{event.people}</p>
     </div>
   )
+}
+
+const EventCellTitleCOmponent: FC<CellProps> = ({ event }) => {
+  return <></>
 }

@@ -9,6 +9,7 @@ import { getEvents, store, update } from '../libs/event'
 import EventTable from '../components/Event/EventTable'
 import { toast } from 'react-toastify'
 import { eventInitialState } from '../state/initialState'
+import MainTitle from '../components/MainTitle'
 
 const Events = () => {
   const [values, setValues] = useState(eventInitialState)
@@ -147,8 +148,9 @@ const Events = () => {
 
   return (
     <Layout>
+      <MainTitle span='オフ会一覧' />
       <Title
-        title="イベント一覧"
+        title="オフ会一覧情報"
         component={<EventAddBtn onClick={handleOpen} />}
       />
       <EventAddDialog
@@ -184,9 +186,9 @@ const EventAddBtn: FC<BtnProps> = ({ onClick }) => {
       variant="contained"
       onClick={onClick}
       size="small"
-      className="themeBtn"
+      className="bg-themeBtnColor text-white h-8 rounded"
     >
-      イベント追加
+      オフ会を新規登録
     </Button>
   )
 }
