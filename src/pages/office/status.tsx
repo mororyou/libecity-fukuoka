@@ -43,7 +43,7 @@ const Status = () => {
                                 : row === '△' && idx > 0
                                 ? 'text-red-800'
                                 : 'text-gray-700'
-                            } border border-gray-400 border-opacity-30 py-2 text-center font-semibold font-mono`}
+                            } border border-gray-400 border-opacity-30 py-2 text-center font-semibol`}
                             >
                               {row}
                             </td>

@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  font-family: "Hiragino Kaku Gothic ProN";
+}
+
 .border-title {
   position: relative;
   padding: 0.3em;
@@ -84,4 +88,8 @@
 
 .showButton.clicked:before {
   width: 0;
+}
+
+.sc-ftTHYK, .sc-bBABsx {
+  order: 5;
 }

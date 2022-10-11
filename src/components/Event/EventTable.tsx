@@ -1,8 +1,7 @@
-import { Style } from '@mui/icons-material'
 import { Button } from '@mui/material'
 import { format } from 'date-fns'
 import { ja } from 'date-fns/locale'
-import { FC, useMemo } from 'react'
+import { FC, useMemo, useState } from 'react'
 import DataTable, { ExpanderComponentProps } from 'react-data-table-component'
 import { items, statusItems } from '../../libs/const'
 import { Event } from '../../types/type'
@@ -14,6 +13,7 @@ type Props = {
 }
 
 const EventTable: FC<Props> = ({ events, loading, editBtnClickHandler }) => {
+  const [currentRow, setCurrentRow] = useState<Event | undefined>(undefined)
   const columns = useMemo(
     () => [
       {
@@ -33,28 +33,6 @@ const EventTable: FC<Props> = ({ events, loading, editBtnClickHandler }) => {
         name: 'タイトル',
         width: 'auto',
         selector: (row: Event) => row.title,
-      },
-      {
-        id: 'edit',
-        name: '',
-        width: '',
-        cell: (row: Event) => {
-          return (
-            <div className="ml-auto flex items-center justify-end pr-[20px]">
-              <Button
-                variant="outlined"
-                className="border-themeMainColor text-sm text-themeMainColor"
-                size="small"
-                onClick={(e) => {
-                  e.preventDefault()
-                  editBtnClickHandler(row)
-                }}
-              >
-                編集
-              </Button>
-            </div>
-          )
-        },
       },
     ],
     []
@@ -78,23 +56,61 @@ const EventTable: FC<Props> = ({ events, loading, editBtnClickHandler }) => {
       },
     },
   }
-
   return (
-    <DataTable
-      columns={columns}
-      data={events}
-      customStyles={customStyles}
-      className="my-4"
-      pagination
-      progressPending={loading}
-      progressComponent={<CustomLoader />}
-      expandableRows
-      expandOnRowClicked={true}
-      expandableRowsHideExpander={true}
-      expandableRowsComponent={EventDetailComponent}
-      highlightOnHover={true}
-      striped={true}
-    />
+    <>
+      <DataTable
+        columns={columns}
+        data={events}
+        customStyles={customStyles}
+        className="my-4"
+        pagination
+        progressPending={loading}
+        progressComponent={<CustomLoader />}
+        expandableRows
+        expandableRowExpanded={(row) => row === currentRow}
+        onRowClicked={(row) => setCurrentRow(row)}
+        onRowExpandToggled={(bool, row) => setCurrentRow(row)}
+        expandableIcon={{
+          collapsed: (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+              className="h-4 w-4"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+              />
+            </svg>
+          ),
+          expanded: (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+              className="h-4 w-4"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M4.5 15.75l7.5-7.5 7.5 7.5"
+              />
+            </svg>
+          ),
+        }}
+        expandOnRowClicked={true}
+        expandableRowsComponent={EventDetailComponent}
+        expandableRowsComponentProps={{ onClickEvent: editBtnClickHandler }}
+        highlightOnHover={true}
+        striped={true}
+      />
+    </>
   )
 }
 
@@ -102,7 +118,11 @@ export default EventTable
 
 const CustomLoader = () => <div>loading...</div>
 
-const EventDetailComponent: FC<ExpanderComponentProps<Event>> = ({ data }) => {
+interface EventDetailProps extends ExpanderComponentProps<Event> {
+  onClickEvent?: any
+}
+
+const EventDetailComponent: FC<EventDetailProps> = ({ data, onClickEvent }) => {
   return (
     <div className="relative flex flex-col items-start justify-start">
       {Object.entries(data).map(([key, value], index) => {
@@ -145,10 +165,17 @@ const EventDetailComponent: FC<ExpanderComponentProps<Event>> = ({ data }) => {
           }
         }
       })}
-      <div className="w-full border-b border-themeTitleText border-opacity-30 bg-white py-4 pr-[20px] flex items-center justify-start md:justify-end">
+      <div className="flex w-full items-center justify-start border-b border-themeTitleText border-opacity-30 bg-white py-4 pr-[20px] md:justify-end">
         <Button
-          className="h-8 md:h-8 w-[120px] rounded bg-themeBtnColor text-xs text-white"
+          className="h-8 w-[120px] rounded bg-themeBtnColor text-xs text-white md:h-8"
           variant="contained"
+          onClick={(e) => {
+            e.preventDefault()
+            console.log(data)
+            if (onClickEvent !== undefined) {
+              onClickEvent(data)
+            }
+          }}
         >
           編集する
         </Button>
@@ -159,6 +186,7 @@ const EventDetailComponent: FC<ExpanderComponentProps<Event>> = ({ data }) => {
 
 type CellProps = {
   event: Event
+  currentRow?: Event | undefined | null
 }
 
 const EventCellDataComponent: FC<CellProps> = ({ event }) => {
@@ -206,7 +234,7 @@ const EventCellStatusComponent: FC<CellProps> = ({ event }) => {
       break
   }
   return (
-    <div className="flex flex-col gap-y-1 ">
+    <div className="flex flex-col gap-y-1">
       <div>
         <span className={statusStyle}>{statusItems[event.status]}</span>
       </div>
@@ -215,6 +243,6 @@ const EventCellStatusComponent: FC<CellProps> = ({ event }) => {
   )
 }
 
-const EventCellTitleCOmponent: FC<CellProps> = ({ event }) => {
+const EventCellArrowComponent: FC<CellProps> = ({ event, currentRow }) => {
   return <></>
 }
