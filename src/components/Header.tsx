@@ -43,8 +43,12 @@ const Header = () => {
         </button>
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
           <ul className="mt-4 flex flex-col md:mt-0 md:flex-row md:space-x-8 md:border-0 md:text-sm md:font-medium">
-            <LinkComponent href='/dashboard' span='ダッシュボード' asPath={asPath} />
-            <LinkComponent href='/events' span='オフ会一覧' asPath={asPath} />
+            <LinkComponent
+              href="/dashboard"
+              span="ダッシュボード"
+              asPath={asPath}
+            />
+            <LinkComponent href="/events" span="オフ会一覧" asPath={asPath} />
           </ul>
         </div>
       </div>
@@ -62,12 +66,12 @@ type LinkProps = {
 
 const LinkComponent: FC<LinkProps> = ({ href, span, asPath }) => {
   if (href === asPath) {
-    return <li className={Styles.navilink_active}>{span}</li>
+    return <li className="navilink_active">{span}</li>
   } else {
     return (
       <Link href={href}>
-        <li className={Styles.navilink}>
-          <a>{span}</a>
+        <li className="navilink bgleft">
+          <span>{span}</span>
         </li>
       </Link>
     )

@@ -3,7 +3,42 @@
 @tailwind utilities;
 
 body {
-  font-family: "Hiragino Kaku Gothic ProN";
+  font-family: 'Hiragino Kaku Gothic ProN';
+}
+
+.navilink {
+  transition: ease 0.2s;
+  text-decoration: none;
+  @apply relative flex h-[46px] w-[200px] cursor-pointer  items-center justify-center overflow-hidden border border-solid border-white text-center outline-none;
+}
+
+.navilink span {
+  z-index: 3; /*z-indexの数値をあげて文字を背景よりも手前に表示*/
+  @apply relative text-white;
+}
+
+.navilink:hover span {
+  @apply font-semibold text-themeMainColor;
+}
+
+.bgleft:before {
+  content: '';
+  z-index: 2;
+  /*アニメーション*/
+  transition: transform 0.6s cubic-bezier(0.8, 0, 0.2, 1) 0s;
+  transform: scale(0, 1);
+  transform-origin: right top;
+  @apply absolute top-0 left-0 h-full w-full bg-white;
+}
+
+/*hoverした際の形状*/
+.bgleft:hover:before {
+  transform-origin: left top;
+  transform: scale(1, 1);
+}
+
+.navilink_active {
+  @apply flex h-[46px] w-[200px] items-center justify-center rounded-[3px] border border-solid border-white bg-white font-semibold text-themeMainColor;
 }
 
 .border-title {
@@ -31,33 +66,33 @@ body {
 
 .eventStatusLabelBefore {
   background-color: rgba(0, 132, 204, 1);
-  @apply rounded-[3px] text-white py-[2px] px-[10px] text-[10px] font-semibold;
+  @apply rounded-[3px] py-[2px] px-[10px] text-[10px] font-semibold text-white;
 }
 
 .eventStatusLabelProgress {
   background-color: rgba(0, 204, 153, 1);
-  @apply rounded-[3px] text-white py-[2px] px-[10px] text-[10px] font-semibold;
+  @apply rounded-[3px] py-[2px] px-[10px] text-[10px] font-semibold text-white;
 }
 
 .eventStatusLabelCancel {
   background-color: rgba(204, 0, 51, 1);
-  @apply rounded-[3px] text-white py-[2px] px-[10px] text-[10px] font-semibold;
+  @apply rounded-[3px] py-[2px] px-[10px] text-[10px] font-semibold text-white;
 }
 
 .eventStatusLabelExit {
   background-color: rgba(204, 204, 204, 1);
-  @apply rounded-[3px] text-white py-[2px] px-[10px] text-[10px] font-semibold;
+  @apply rounded-[3px] py-[2px] px-[10px] text-[10px] font-semibold text-white;
 }
 
 .eventStatusLabelMedium {
   background-color: rgba(204, 112, 0, 1);
-  @apply rounded-[3px] text-white py-[2px] px-[10px] text-[10px] font-semibold;
+  @apply rounded-[3px] py-[2px] px-[10px] text-[10px] font-semibold text-white;
 }
 
 .showButton {
   width: 55px;
   height: 55px;
-  background: #70975B;
+  background: #70975b;
   transform: translate(-50%, -50%) rotate(0deg);
   border-radius: 50%;
   cursor: pointer;
@@ -83,13 +118,14 @@ body {
 
 .showButton.clicked {
   transform: translate(-50%, -50%) rotate(360deg);
-  background: #CC2A41;
+  background: #cc2a41;
 }
 
 .showButton.clicked:before {
   width: 0;
 }
 
-.sc-ftTHYK, .sc-bBABsx {
+.sc-ftTHYK,
+.sc-bBABsx {
   order: 5;
 }
