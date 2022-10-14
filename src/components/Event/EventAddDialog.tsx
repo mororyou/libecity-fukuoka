@@ -97,6 +97,7 @@ const EventAddDialog: FC<Props> = ({
                   fullWidth
                   value={values.title}
                   onChange={handleChange('title')}
+                  required={true}
                 />
               </div>
               <div className="flex flex-wrap gap-y-4">
@@ -108,6 +109,8 @@ const EventAddDialog: FC<Props> = ({
                     type="date"
                     value={values.date}
                     onChange={handleChange('date')}
+                    required={true}
+                    className="text-left"
                   />
                 </div>
                 <div className="md:w-3/8 w-2/3 pr-2 md:pr-4">
@@ -128,6 +131,7 @@ const EventAddDialog: FC<Props> = ({
                     fullWidth
                     value={values.location}
                     onChange={handleChange('location')}
+                    required={true}
                   />
                 </div>
                 <div className="w-1/2 md:w-1/3 md:pr-4">
@@ -149,6 +153,7 @@ const EventAddDialog: FC<Props> = ({
                   fullWidth
                   value={values.organizer}
                   onChange={handleChange('organizer')}
+                  required={true}
                 />
               </div>
 
@@ -159,6 +164,7 @@ const EventAddDialog: FC<Props> = ({
                   fullWidth
                   value={values.community}
                   onChange={handleChange('community')}
+                  required={true}
                 />
               </div>
 
@@ -169,6 +175,7 @@ const EventAddDialog: FC<Props> = ({
                   fullWidth
                   value={values.event}
                   onChange={handleChange('event')}
+                  required={true}
                 />
               </div>
 
@@ -181,21 +188,21 @@ const EventAddDialog: FC<Props> = ({
                   onChange={handleClickChange('status')}
                   aria-label="Platform"
                 >
-                  <ToggleButton className="w-[20%]" value={0}>
+                  {/* <ToggleButton className="w-[20%]" value={0}>
                     募集前
-                  </ToggleButton>
-                  <ToggleButton className="w-[20%]" value={1}>
+                  </ToggleButton> */}
+                  <ToggleButton className="w-[25%]" value={1}>
                     募集中
                   </ToggleButton>
-                  <ToggleButton className="w-[20%]" value={2}>
-                    キャンセル待ち
+                  <ToggleButton className="w-[25%]" value={2}>
+                    募集終了
                   </ToggleButton>
-                  <ToggleButton className="w-[20%]" value={80}>
+                  <ToggleButton className="w-[25%]" value={80}>
                     終了
                   </ToggleButton>
-                  <ToggleButton className="w-[20%]" value={99}>
+                  {/* <ToggleButton className="w-[25%]" value={99}>
                     イベント中止
-                  </ToggleButton>
+                  </ToggleButton> */}
                 </ToggleButtonGroup>
               </div>
 

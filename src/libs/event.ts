@@ -73,6 +73,7 @@ export const getEvents = async () => {
       { count: 'exact' }
     )
     .eq('delflg', false)
+    .eq('status', 1)
     .order('date', { ascending: false })
 
   if (error) {
