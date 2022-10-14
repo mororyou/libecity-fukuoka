@@ -60,6 +60,7 @@ const Layout: FC<Props> = ({ children }) => {
             key={action.name}
             icon={action.icon}
             tooltipTitle={action.name}
+            tooltipOpen
           />
         ))}
       </SpeedDial>
