@@ -1,5 +1,7 @@
+import Styles from './Footer.module.css'
+
 const Footer = () => (
-  <footer className="flex h-12 mt-8 items-center justify-center bg-themeMainColor py-8 font-bold text-white">
+  <footer className={Styles.footer}>
     <span className="text-xs">
       Copyright {process.env.NEXT_PUBLIC_SITE_TITLE}
     </span>

@@ -7,7 +7,7 @@ type Props = {
 }
 
 const Title: FC<Props> = ({ title, component = null }) => (
-  <div className="flex w-full items-center border-b-2 border-themeMainColor pr-[20.5px] pb-[5.5px]">
+  <div className="flex w-full items-center border-b-2 border-themeMainColor pb-[5.5px] md:pr-[20.5px]">
     <div className="flex w-full items-center">
       <img
         src={'/images/libecity/president_icon.webp'}

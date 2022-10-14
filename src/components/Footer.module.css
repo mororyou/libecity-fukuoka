@@ -1,0 +1,5 @@
+.footer {
+  background: transparent linear-gradient(90deg, #3550d4 0%, #b2eaff 100%) 0% 0%
+    no-repeat padding-box;
+  @apply flex h-12 mt-8 items-center justify-center bg-themeMainColor py-8 font-bold text-white;
+}
