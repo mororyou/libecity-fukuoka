@@ -14,12 +14,17 @@ import ListAltIcon from '@mui/icons-material/ListAlt'
 import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined'
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 const actions = [
-  { icon: <CalendarMonthOutlinedIcon />, name: 'カレンダー' },
-  { icon: <ListAltIcon />, name: '一覧画面' },
-  { icon: <PostAddOutlinedIcon />, name: '新規登録' },
-  { icon: <DashboardOutlinedIcon />, name: 'トップ' },
+  { icon: <DashboardOutlinedIcon />, name: 'トップ', href: '/' },
+  { icon: <ListAltIcon />, name: '一覧画面', href: '/events' },
+  // {
+  //   icon: <CalendarMonthOutlinedIcon />,
+  //   name: 'カレンダー',
+  //   href: '/calendar',
+  // },
+  // { icon: <PostAddOutlinedIcon />, name: '新規登録', href: '' },
 ]
 
 type Props = {
@@ -27,6 +32,7 @@ type Props = {
 }
 
 const Layout: FC<Props> = ({ children }) => {
+  const router = useRouter()
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -57,10 +63,11 @@ const Layout: FC<Props> = ({ children }) => {
       >
         {actions.map((action) => (
           <SpeedDialAction
-            key={action.name}
             icon={action.icon}
             tooltipTitle={action.name}
+            key={action.name}
             tooltipOpen
+            onClick={() => router.push(action.href)}
           />
         ))}
       </SpeedDial>
