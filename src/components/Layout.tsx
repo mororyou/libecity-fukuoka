@@ -17,7 +17,11 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 const actions = [
-  { icon: <DashboardOutlinedIcon />, name: 'トップ', href: '/' },
+  {
+    icon: <DashboardOutlinedIcon />,
+    name: 'ダッシュボード',
+    href: '/dashboard',
+  },
   { icon: <ListAltIcon />, name: '一覧画面', href: '/events' },
   // {
   //   icon: <CalendarMonthOutlinedIcon />,
