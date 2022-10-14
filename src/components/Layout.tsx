@@ -9,6 +9,18 @@ import {
   SpeedDialAction,
   SpeedDialIcon,
 } from '@mui/material'
+import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined'
+import ListAltIcon from '@mui/icons-material/ListAlt'
+import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined'
+import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined'
+import Image from 'next/image'
+
+const actions = [
+  { icon: <CalendarMonthOutlinedIcon />, name: 'カレンダー' },
+  { icon: <ListAltIcon />, name: '一覧画面' },
+  { icon: <PostAddOutlinedIcon />, name: '新規登録' },
+  { icon: <DashboardOutlinedIcon />, name: 'トップ' },
+]
 
 type Props = {
   children: ReactNode
@@ -30,14 +42,26 @@ const Layout: FC<Props> = ({ children }) => {
       <ToastContainer />
       <SpeedDial
         ariaLabel="BottomMenu"
-        className=" fixed bottom-4 right-4 sm:hidden"
-        icon={<SpeedDialIcon />}
+        className="fixed bottom-4 right-4 sm:hidden"
+        icon={
+          <Image
+            src={'/images/libecity/president_icon.webp'}
+            width={41}
+            height={40}
+            alt="両学長"
+          />
+        }
         onClose={handleClose}
         onOpen={handleOpen}
         open={open}
       >
-        <SpeedDialAction />
-        <SpeedDialAction />
+        {actions.map((action) => (
+          <SpeedDialAction
+            key={action.name}
+            icon={action.icon}
+            tooltipTitle={action.name}
+          />
+        ))}
       </SpeedDial>
     </div>
   )
