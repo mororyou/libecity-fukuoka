@@ -65,28 +65,24 @@ body {
 }
 
 .eventStatusLabelBefore {
-  background-color: rgba(0, 132, 204, 1);
-  @apply rounded-[3px] py-[2px] px-[10px] text-[10px] font-semibold text-white;
+  background-color: #0084cc;
+  @apply bg-before rounded-[3px] py-[2px] px-[10px] text-[10px] font-semibold text-white;
 }
 
 .eventStatusLabelProgress {
-  background-color: rgba(0, 204, 153, 1);
-  @apply rounded-[3px] py-[2px] px-[10px] text-[10px] font-semibold text-white;
+  @apply bg-progress rounded-[3px] py-[2px] px-[10px] text-[10px] font-semibold text-white;
 }
 
 .eventStatusLabelCancel {
-  background-color: rgba(204, 0, 51, 1);
-  @apply rounded-[3px] py-[2px] px-[10px] text-[10px] font-semibold text-white;
+  @apply bg-cancel rounded-[3px] py-[2px] px-[10px] text-[10px] font-semibold text-white;
 }
 
 .eventStatusLabelExit {
-  background-color: rgba(204, 204, 204, 1);
-  @apply rounded-[3px] py-[2px] px-[10px] text-[10px] font-semibold text-white;
+  @apply bg-exit rounded-[3px] py-[2px] px-[10px] text-[10px] font-semibold text-white;
 }
 
-.eventStatusLabelMedium {
-  background-color: rgba(204, 112, 0, 1);
-  @apply rounded-[3px] py-[2px] px-[10px] text-[10px] font-semibold text-white;
+.eventStatusLabelDiscontinuation {
+  @apply bg-discontinuation rounded-[3px] py-[2px] px-[10px] text-[10px] font-semibold text-white;
 }
 
 .showButton {

@@ -62,7 +62,7 @@ const EventTable: FC<Props> = ({ events, loading, editBtnClickHandler }) => {
         columns={columns}
         data={events}
         customStyles={customStyles}
-        className="my-4"
+        className="mb-8"
         pagination
         progressPending={loading}
         progressComponent={<CustomLoader />}
@@ -230,7 +230,7 @@ const EventCellStatusComponent: FC<CellProps> = ({ event }) => {
       statusStyle = 'eventStatusLabelExit'
       break
     case 99:
-      statusStyle = 'eventStatusLabelMedium'
+      statusStyle = 'eventStatusLabelDiscontinuation'
       break
   }
   return (
