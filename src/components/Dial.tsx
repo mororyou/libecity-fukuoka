@@ -13,11 +13,6 @@ const actions = [
     href: '/dashboard',
   },
   { icon: <ListAltIcon />, name: '一覧画面', href: '/events' },
-  {
-    icon: <CalendarMonthOutlinedIcon />,
-    name: 'カレンダー',
-    href: '/calendar',
-  },
   // { icon: <PostAddOutlinedIcon />, name: '新規登録', href: '' },
 ]
 type Props = {

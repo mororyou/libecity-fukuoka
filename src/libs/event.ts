@@ -89,6 +89,7 @@ export const getEvents = async (status: string = '1') => {
   }
 }
 
+// 取得（日指定）
 export const getDayEvents = async (date: string, status: string = '1') => {
   const { data, error } = await supabase
     .from('events')
@@ -101,6 +102,31 @@ export const getDayEvents = async (date: string, status: string = '1') => {
     .eq('status', status)
     .order('time', { ascending: true })
 
+  if (error) {
+    return {
+      data: error,
+      error: true,
+    }
+  } else {
+    return {
+      data: data,
+      error: false,
+    }
+  }
+}
+
+export const getCalendarEvents = async (
+  startDate: string,
+  endDate: string,
+  status: string = '1'
+) => {
+  const { data, error } = await supabase
+    .from('events')
+    .select('date')
+    .gte('date', startDate)
+    .lte('date', endDate)
+    .eq('status', status)
+    .order('date', { ascending: false })
   if (error) {
     return {
       data: error,

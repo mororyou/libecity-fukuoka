@@ -16,8 +16,6 @@ const Events = () => {
   const [values, setValues] = useState(eventInitialState)
   // Event
   const [events, setEvents] = useState([])
-  const [keyword, setKeyword] = useState('')
-
   const [mode, setMode] = useState('list')
   const [status, setStatus] = useState('1')
 
@@ -256,7 +254,7 @@ const Events = () => {
             editBtnClickHandler={editBtnClickHandler}
           />
         ) : (
-          <EventCalendar />
+          <EventCalendar status={status} />
         )}
       </div>
     </Layout>

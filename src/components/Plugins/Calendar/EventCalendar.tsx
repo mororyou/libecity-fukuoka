@@ -4,56 +4,42 @@ import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import '@fullcalendar/common/main.css'
 import '@fullcalendar/daygrid/main.css'
-import { useCallback, useState } from 'react'
+import { FC, useCallback, useState } from 'react'
 import format from 'date-fns/format'
 import ja from 'date-fns/locale/ja'
 import { toast } from 'react-toastify'
-import { Event } from '../../../types/type'
-import { getDayEvents } from '../../../libs/event'
+import { getCalendarEvents, getDayEvents } from '../../../libs/event'
+import { groupBy } from '../../../libs/utils'
 
-const EventCalendar = () => {
+type Props = {
+  status: string
+}
+
+const EventCalendar: FC<Props> = ({ status }) => {
   const [day, setDay] = useState({
     date: '',
     count: 0,
     events: {},
   })
 
-  const handleDateClick = useCallback(async (arg: DateClickArg) => {
-    try {
-      const res = await getDayEvents(arg.dateStr)
-      if (Object.keys(res.data).length > 0) {
-        await setDay({ ...day, events: res.data as Array<Event> })
-      }
-      const d = new Date(arg.dateStr)
-      const formatDate = format(d, 'yyyy年M月d日(E)', { locale: ja })
-      await setDay({ ...day, date: formatDate })
-      await setDay({ ...day, count: Object.keys(res.data).length })
-    } catch (error) {
-      toast.error('イベント情報取得時にエラーが発生しました。', {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      })
-    }
-  }, [])
+  const handleDateClick = async (arg: DateClickArg) => {
+    getDayEventHandler(arg.dateStr)
+  }
 
-  const getCalendarData = async (
-    fetchInfo: object,
-    successCallback: () => void
-  ) => {
+  const handleLabelClick = async (date: string) => {
+    getDayEventHandler(date)
+  }
+
+  const getDayEventHandler = async (date: string) => {
     try {
-      const res = await fetch('', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({}),
+      const res = await getDayEvents(date, status)
+      const d = new Date(date)
+      const formatDate = format(d, 'yyyy年M月d日(E)', { locale: ja })
+      await setDay({
+        date: formatDate,
+        count: Object.keys(res.data).length,
+        events: res.data,
       })
-      const calendar = await res.json()
     } catch (error) {
       toast.error('イベント情報取得時にエラーが発生しました。', {
         position: 'top-right',
@@ -67,11 +53,42 @@ const EventCalendar = () => {
     }
   }
 
+  const getCalendarData = async (
+    arg: any,
+    status: string,
+    successCallback: any,
+    failureCallback: any
+  ) => {
+    try {
+      const startDate = await format(arg.start, 'yyyy-MM-dd')
+      const endDate = await format(arg.end, 'yyyy-MM-dd')
+      const res = await getCalendarEvents(startDate, endDate, status)
+      const result = (await res.data) as Array<[]>
+      const calendar = await groupBy(result, 'date')
+      successCallback(
+        Object.keys(calendar).map((date) => {
+          return {
+            date: date,
+            count: calendar[date].length,
+          }
+        })
+      )
+    } catch (error) {
+      toast.error('イベント情報取得時にエラーが発生しました。', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
+    }
+  }
+
+  console.log(day.events)
   return (
     <div className="relative w-full">
-      <p className="absolute top-1/2 right-1/2 w-64 rounded bg-themeMainColor bg-opacity-30 py-2 text-center text-xl text-white">
-        作成中
-      </p>
       <div className="md:gap my-8 grid w-full grid-cols-1 gap-y-8 gap-x-4 px-2 md:grid-cols-12 md:px-0">
         <div className="col-span-12 md:col-span-7">
           <FullCalendar
@@ -80,13 +97,17 @@ const EventCalendar = () => {
             dateClick={handleDateClick}
             locales={allLocales}
             locale="ja"
-            events={[
-              { title: 'event 1', start: '2022-10-01', count: 1 },
-              { title: 'event 2', start: '2022-10-02', count: 3 },
-            ]}
-            eventContent={(arg) => renderEventContent(arg, handleDateClick)}
+            events={(fetchInfo, successsCallback, failureCallback) => {
+              getCalendarData(
+                fetchInfo,
+                status,
+                successsCallback,
+                failureCallback
+              )
+            }}
+            eventContent={(arg) => renderEventContent(arg, handleLabelClick)}
             headerToolbar={{
-              start: 'title', // leftと書いてもよい
+              start: 'title',
               center: '',
               end: 'today prev,next',
             }}
@@ -101,9 +122,55 @@ const EventCalendar = () => {
               alt={`${day.date}開催予定イベント`}
             />
             <p className="text-xl font-semibold text-gray-700">
-              {day.date} 開催予定イベント （{day.count}件）
+              {day.date} {status === '80' ? '終了' : '開催予定'}イベント （
+              {day.count}件）
             </p>
           </h3>
+          <ul className="flex w-full flex-col">
+            {Object.values(day.events).map((value: any) => {
+              return (
+                <li
+                  className="flex w-full flex-wrap gap-y-2 border-b border-themeMainColor border-opacity-40 py-4"
+                  key={value.id}
+                >
+                  <p className="w-full font-mono font-black text-themeMainColor">
+                    {value.title ? value.title : '未設定'}
+                  </p>
+                  <p className="w-7/12 text-sm text-gray-600">
+                    <span className="font-semibold">コミュニティ：</span>
+                    {value.community ? value.community : '未設定'}
+                  </p>
+                  <p className="w-5/12 text-sm text-gray-600">
+                    <span className="font-semibold">主催者：</span>
+                    {value.organizer ? value.organizer : '未設定'}
+                  </p>
+                  <p className="w-7/12 text-sm text-gray-600">
+                    <span className="font-semibold">イベント：</span>
+                    {value.event ? (
+                      <a
+                        className="rounded-md bg-themeMainColor py-[0.3rem] px-4 text-xs text-white hover:bg-opacity-60"
+                        href={`${value.event}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        イベントリンク先
+                      </a>
+                    ) : (
+                      '未設定'
+                    )}
+                  </p>
+                  <p className="w-5/12 text-sm text-gray-600">
+                    <span className="font-semibold">開催場所：</span>
+                    {value.location}
+                  </p>
+                  <p className="flex flex-col text-sm text-gray-600">
+                    <span className="mb-1 font-semibold">備考</span>
+                    <span className="text-sm">{value.comment}</span>
+                  </p>
+                </li>
+              )
+            })}
+          </ul>
         </div>
       </div>
     </div>
@@ -112,15 +179,13 @@ const EventCalendar = () => {
 
 export default EventCalendar
 
-const renderEventContent = (arg: EventContentArg, handleDateClick: any) => {
+const renderEventContent = (arg: EventContentArg, handleLabelClick: any) => {
   return (
     <div
       className="w-full bg-themeMainColor"
-      onClick={() => handleDateClick(arg.event.startStr)}
+      onClick={() => handleLabelClick(arg.event.startStr)}
     >
       <p className="cursor-pointer rounded py-1 text-center text-xs font-semibold text-white">
-        イベント
-        <br />
         {arg.event.extendedProps.count}件
       </p>
     </div>
