@@ -30,7 +30,7 @@ const EventTable: FC<Props> = ({ events, loading, editBtnClickHandler }) => {
       },
       {
         id: 'title',
-        name: 'タイトル',
+        name: 'タイトル ※タイトルクリックで詳細表示',
         width: 'auto',
         selector: (row: Event) => row.title,
       },

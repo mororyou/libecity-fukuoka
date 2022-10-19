@@ -170,7 +170,7 @@ const EventAddDialog: FC<Props> = ({
 
               <div className="w-full md:w-3/4">
                 <TextField
-                  label="リンク"
+                  label="募集URL"
                   size="small"
                   fullWidth
                   value={values.event}
