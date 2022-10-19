@@ -15,12 +15,12 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": [, "src/utils/test.js"
+  "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     "src/utils/firebase.js",
-    "src/utils/firebase.js"
-, "src/utils/test.js"  ],
+    "src/utils/test.js"
+  ],
   "exclude": ["node_modules"]
 }
