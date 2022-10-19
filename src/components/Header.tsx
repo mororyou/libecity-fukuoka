@@ -22,12 +22,12 @@ const Header = () => {
         </Link>
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
           <ul className="mt-4 flex flex-col md:mt-0 md:flex-row md:space-x-8 md:border-0 md:text-sm md:font-medium">
-            <LinkComponent
+            {/* <LinkComponent
               href="/dashboard"
               span="ダッシュボード"
               asPath={asPath}
-            />
-            <LinkComponent href="/events" span="オフ会一覧" asPath={asPath} />
+            /> */}
+            {/* <LinkComponent href="/events" span="オフ会一覧" asPath={asPath} /> */}
           </ul>
         </div>
       </div>

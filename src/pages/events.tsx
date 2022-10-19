@@ -1,4 +1,4 @@
-import { Button, Select, ToggleButton, ToggleButtonGroup } from '@mui/material'
+import { Button, ToggleButton, ToggleButtonGroup } from '@mui/material'
 import { format } from 'date-fns'
 import { ja } from 'date-fns/locale'
 import Layout from '../components/Layout'
@@ -163,10 +163,10 @@ const Events = () => {
         handleClickChange={handleClickChange}
         submitHandler={submitHandler}
       />
-      <div className="my-4 flex w-full items-center justify-between md:justify-between">
+      <div className="my-4 flex w-full flex-wrap items-center justify-between gap-y-3 md:justify-between">
         <ToggleButtonGroup
           size="small"
-          className="w-3/4 md:w-1/4"
+          className="w-full md:w-1/2 lg:w-1/3"
           exclusive
           value={status}
           onChange={(e: React.MouseEvent<HTMLElement>, value: string) => {
@@ -181,14 +181,14 @@ const Events = () => {
             募集中
           </ToggleButton>
           <ToggleButton
-            className="w-1/3 text-xs"
+            className="w-1/3 text-sm"
             value={'2'}
             disabled={status === '2' ? true : false}
           >
             キャンセル待ち
           </ToggleButton>
           <ToggleButton
-            className="w-1/3 text-xs"
+            className="w-1/3 text-sm"
             value={'80'}
             disabled={status === '80' ? true : false}
           >
@@ -206,7 +206,7 @@ const Events = () => {
         >
           <ToggleButton
             value={'list'}
-            className="w-14 text-xs"
+            className="w-auto text-xs"
             disabled={mode === 'list' ? true : false}
           >
             <svg
@@ -223,10 +223,11 @@ const Events = () => {
                 d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
               />
             </svg>
+            <span className="ml-1 text-xs">一覧</span>
           </ToggleButton>
           <ToggleButton
             value={'calendar'}
-            className="w-14 text-xs"
+            className="w-auto text-xs"
             disabled={mode === 'calendar' ? true : false}
           >
             <svg
@@ -243,6 +244,7 @@ const Events = () => {
                 d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"
               />
             </svg>
+            <span className="ml-1 text-xs">カレンダー</span>
           </ToggleButton>
         </ToggleButtonGroup>
       </div>

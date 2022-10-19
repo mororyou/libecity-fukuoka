@@ -86,7 +86,6 @@ const EventCalendar: FC<Props> = ({ status }) => {
     }
   }
 
-  console.log(day.events)
   return (
     <div className="relative w-full">
       <div className="md:gap my-8 grid w-full grid-cols-1 gap-y-8 gap-x-4 px-2 md:grid-cols-12 md:px-0">
@@ -127,49 +126,65 @@ const EventCalendar: FC<Props> = ({ status }) => {
             </p>
           </h3>
           <ul className="flex w-full flex-col">
-            {Object.values(day.events).map((value: any) => {
-              return (
-                <li
-                  className="flex w-full flex-wrap gap-y-2 border-b border-themeMainColor border-opacity-40 py-4"
-                  key={value.id}
-                >
-                  <p className="w-full font-mono font-black text-themeMainColor">
-                    {value.title ? value.title : '未設定'}
-                  </p>
-                  <p className="w-7/12 text-sm text-gray-600">
-                    <span className="font-semibold">コミュニティ：</span>
-                    {value.community ? value.community : '未設定'}
-                  </p>
-                  <p className="w-5/12 text-sm text-gray-600">
-                    <span className="font-semibold">主催者：</span>
-                    {value.organizer ? value.organizer : '未設定'}
-                  </p>
-                  <p className="w-7/12 text-sm text-gray-600">
-                    <span className="font-semibold">イベント：</span>
-                    {value.event ? (
-                      <a
-                        className="rounded-md bg-themeMainColor py-[0.3rem] px-4 text-xs text-white hover:bg-opacity-60"
-                        href={`${value.event}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        イベントリンク先
-                      </a>
-                    ) : (
-                      '未設定'
-                    )}
-                  </p>
-                  <p className="w-5/12 text-sm text-gray-600">
-                    <span className="font-semibold">開催場所：</span>
-                    {value.location}
-                  </p>
-                  <p className="flex flex-col text-sm text-gray-600">
-                    <span className="mb-1 font-semibold">備考</span>
-                    <span className="text-sm">{value.comment}</span>
-                  </p>
-                </li>
-              )
-            })}
+            {day.count > 0 ? (
+              <>
+                {Object.values(day.events).map((value: any) => {
+                  return (
+                    <li
+                      className="flex w-full flex-wrap gap-y-2 border-b border-themeMainColor border-opacity-40 py-4 md:gap-y-2"
+                      key={value.id}
+                    >
+                      <p className="w-full font-mono font-black text-themeMainColor">
+                        {value.title ? value.title : '未設定'}
+                      </p>
+                      <p className="w-full text-sm text-gray-600 md:w-7/12">
+                        <span className="font-semibold">コミュニティ：</span>
+                        {value.community ? value.community : '未設定'}
+                      </p>
+                      <p className="w-full text-sm text-gray-600 md:w-5/12">
+                        <span className="font-semibold">主催者：</span>
+                        {value.organizer ? value.organizer : '未設定'}
+                      </p>
+                      <p className="w-full text-sm text-gray-600 md:w-7/12">
+                        <span className="font-semibold">イベント：</span>
+                        {value.status == 1 ? (
+                          <>
+                            {value.event ? (
+                              <a
+                                className="rounded-md bg-themeMainColor py-[0.3rem] px-4 text-xs text-white hover:bg-opacity-60"
+                                href={`${value.event}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                参加申し込みはこちら
+                              </a>
+                            ) : (
+                              '未設定'
+                            )}
+                          </>
+                        ) : (
+                          <span className="rounded-md bg-themeBtnColor px-2 py-1 text-white">
+                            申し込みすることができません
+                          </span>
+                        )}
+                      </p>
+                      <p className="w-full text-sm text-gray-600 md:w-5/12">
+                        <span className="font-semibold">開催場所：</span>
+                        {value.location}
+                      </p>
+                      <p className="flex flex-col text-sm text-gray-600">
+                        <span className="mb-1 font-semibold">備考</span>
+                        <span className="pl-1 text-sm">{value.comment}</span>
+                      </p>
+                    </li>
+                  )
+                })}
+              </>
+            ) : (
+              <p className="mt-4 font-mono font-bold text-themeTitleText">
+                登録されている日付を選択(クリック)してください
+              </p>
+            )}
           </ul>
         </div>
       </div>
