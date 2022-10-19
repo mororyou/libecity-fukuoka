@@ -109,6 +109,7 @@ const EventTable: FC<Props> = ({ events, loading, editBtnClickHandler }) => {
         expandableRowsComponentProps={{ onClickEvent: editBtnClickHandler }}
         highlightOnHover={true}
         striped={true}
+        paginationPerPage={20}
       />
     </>
   )
@@ -238,7 +239,9 @@ const EventCellStatusComponent: FC<CellProps> = ({ event }) => {
       <div>
         <span className={statusStyle}>{statusItems[event.status]}</span>
       </div>
-      <p className="text-xs">募集人数：{event.people}</p>
+      <p className="text-xs">
+        募集人数：{event.people === 0 ? '数名' : `${event.people}人`}
+      </p>
     </div>
   )
 }

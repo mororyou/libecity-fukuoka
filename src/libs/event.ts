@@ -74,7 +74,7 @@ export const getEvents = async (status: string = '1') => {
     )
     .eq('delflg', false)
     .eq('status', status)
-    .order('date', { ascending: false })
+    .order('date', { ascending: true })
 
   if (error) {
     return {
