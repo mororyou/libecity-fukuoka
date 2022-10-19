@@ -1,0 +1,33 @@
+{
+  "theme_color": "#3550D4",
+  "background_color": "#3550D4",
+  "categories": "social",
+  "display": "fullscreen",
+  "scope": "/",
+  "start_url": "/",
+  "name": "\u30ea\u30d9\u30b7\u30c6\u30a3 \u798f\u5ca1\u30a4\u30d9\u30f3\u30c8\u7ba1\u7406",
+  "short_name": "\u798f\u5ca1\u30a4\u30d9\u30f3\u30c8\u7ba1\u7406",
+  "description": "\u30ea\u30d9\u30b7\u30c6\u30a3 \u798f\u5ca1\u652f\u90e8 \u30a4\u30d9\u30f3\u30c8\u7ba1\u7406\u30b7\u30b9\u30c6\u30e0",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

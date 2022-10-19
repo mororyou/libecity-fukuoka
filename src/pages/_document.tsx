@@ -22,11 +22,11 @@ class MyDocument extends Document {
           sizes="16x16"
           href="/favicon-16x16.png"
         />
-        <link rel="manifest" href="/site.webmanifest" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#3550D4" />
         <meta name="msapplication-TileColor" content="#3550d4" />
-        <meta name="theme-color" content="#ffffff"></meta>
-        <title>リベシティ　イベント管理</title>
+        <meta name="theme-color" content="#3550D4"></meta>
+        <title>リベシティ　福岡イベント管理</title>
         <body>
           <Main />
           <NextScript />

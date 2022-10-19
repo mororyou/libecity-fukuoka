@@ -4,6 +4,7 @@ import { FC, ReactNode, useState } from 'react'
 import Footer from './Footer'
 import Header from './Header'
 import BurgerMenu from './BurgerMenu'
+import Notification from '../utils/test'
 
 type Props = {
   children: ReactNode
@@ -18,6 +19,7 @@ const Layout: FC<Props> = ({ children }) => {
         {children}
       </main>
       <Footer />
+      <Notification />
       <ToastContainer />
     </div>
   )

@@ -1,4 +1,9 @@
 /** @type {import('next').NextConfig} */
+const withPWA = require('next-pwa')({
+  dest: 'public',
+  register: true,
+  skipWaiting: true,
+})
 const withTM = require('next-transpile-modules')([
   '@fullcalendar/common',
   '@babel/preset-react',
@@ -7,7 +12,9 @@ const withTM = require('next-transpile-modules')([
   '@fullcalendar/react',
 ])
 
-module.exports = withTM({
+const config = {
   reactStrictMode: true,
   optimizeFonts: true,
-})
+}
+
+module.exports = withPWA(withTM(config))
