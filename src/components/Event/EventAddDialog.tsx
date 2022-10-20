@@ -188,14 +188,17 @@ const EventAddDialog: FC<Props> = ({
                   onChange={handleClickChange('status')}
                   aria-label="Platform"
                 >
-                  <ToggleButton className="w-[25%]" value={1}>
+                  <ToggleButton className="w-[20%]" value={1}>
                     募集中
                   </ToggleButton>
-                  <ToggleButton className="w-[25%]" value={2}>
+                  <ToggleButton className="w-[20%]" value={2}>
                     募集終了
                   </ToggleButton>
-                  <ToggleButton className="w-[25%]" value={80}>
+                  <ToggleButton className="w-[20%]" value={80}>
                     終了
+                  </ToggleButton>
+                  <ToggleButton className="w-[20%]" value={99}>
+                    中止・削除
                   </ToggleButton>
                 </ToggleButtonGroup>
               </div>

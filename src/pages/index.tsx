@@ -174,25 +174,32 @@ const Home = () => {
           }}
         >
           <ToggleButton
-            className="w-1/3 text-sm"
+            className="w-1/4 text-sm"
             value={'1'}
             disabled={status === '1' ? true : false}
           >
             募集中
           </ToggleButton>
           <ToggleButton
-            className="w-1/3 text-sm"
+            className="w-1/4 text-sm"
             value={'2'}
             disabled={status === '2' ? true : false}
           >
             キャンセル待ち
           </ToggleButton>
           <ToggleButton
-            className="w-1/3 text-sm"
+            className="w-1/4 text-sm"
             value={'80'}
             disabled={status === '80' ? true : false}
           >
             終了
+          </ToggleButton>
+          <ToggleButton
+            className="w-1/4 text-sm"
+            value={'99'}
+            disabled={status === '99' ? true : false}
+          >
+            中止・削除
           </ToggleButton>
         </ToggleButtonGroup>
 
