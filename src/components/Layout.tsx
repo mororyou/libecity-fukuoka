@@ -1,10 +1,9 @@
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { FC, ReactNode, useState } from 'react'
+import { FC, ReactNode } from 'react'
 import Footer from './Footer'
 import Header from './Header'
-import BurgerMenu from './BurgerMenu'
-import Notification from '../utils/test'
+// import Notification from '../utils/notification/notification'
 
 type Props = {
   children: ReactNode
@@ -19,7 +18,7 @@ const Layout: FC<Props> = ({ children }) => {
         {children}
       </main>
       <Footer />
-      <Notification />
+      {/* <Notification /> */}
       <ToastContainer />
     </div>
   )
