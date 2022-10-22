@@ -10,7 +10,7 @@ const Header = () => {
   return (
     <nav className={Styles.header}>
       <div className="mx-auto flex flex-wrap items-center justify-between">
-        <Link href={'/dashboard'}>
+        <Link href={'/'}>
           <a className="flex items-center">
             <Image
               src={'/images/libecity/libecity_logo.svg'}
