@@ -172,7 +172,6 @@ const EventDetailComponent: FC<EventDetailProps> = ({ data, onClickEvent }) => {
           variant="contained"
           onClick={(e) => {
             e.preventDefault()
-            console.log(data)
             if (onClickEvent !== undefined) {
               onClickEvent(data)
             }

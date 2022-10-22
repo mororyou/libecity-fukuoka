@@ -50,7 +50,7 @@ const Home = () => {
       time: row.time,
       location: row.location,
       organizer: row.organizer,
-      people: 0,
+      people: row.people,
       request: 0,
       event: row.event,
       community: row.community,
