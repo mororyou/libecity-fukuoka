@@ -26,7 +26,7 @@ class MyDocument extends Document {
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#3550D4" />
         <meta name="msapplication-TileColor" content="#3550d4" />
         <meta name="theme-color" content="#3550D4"></meta>
-        <title>リベシティ　福岡イベント管理</title>
+        <title>リベシティ　福岡支部イベント管理</title>
         <body>
           <Main />
           <NextScript />

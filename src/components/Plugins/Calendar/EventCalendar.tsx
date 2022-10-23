@@ -102,6 +102,7 @@ const EventCalendar: FC<Props> = ({ status, prefectures }) => {
             dateClick={handleDateClick}
             locales={allLocales}
             locale="ja"
+            height={'auto'}
             events={(fetchInfo, successsCallback, failureCallback) => {
               getCalendarData(
                 fetchInfo,
