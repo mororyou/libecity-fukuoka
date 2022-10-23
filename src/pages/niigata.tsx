@@ -1,6 +1,6 @@
 import { NextPage } from 'next'
 import EventPage from '../components/Event/EventPage'
 
-const Home: NextPage = () => <EventPage prefectures={'40'} />
+const Niigata: NextPage = () => <EventPage prefectures={'15'} />
 
-export default Home
+export default Niigata

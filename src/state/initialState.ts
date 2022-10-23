@@ -10,6 +10,7 @@ export const eventInitialState = {
   time: '',
   location: '',
   organizer: '',
+  prefectures: '',
   people: 0,
   request: 0,
   event: '',

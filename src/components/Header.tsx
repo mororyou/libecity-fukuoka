@@ -10,16 +10,21 @@ const Header = () => {
   return (
     <nav className={Styles.header}>
       <div className="mx-auto flex flex-wrap items-center justify-between">
-        <Link href={'/'}>
-          <a className="flex items-center">
-            <Image
-              src={'/images/libecity/libecity_logo.svg'}
-              width="143.29"
-              height="50"
-              alt="リベシティロゴ"
-            />
-          </a>
-        </Link>
+        {asPath === '/' ? (
+          <img
+            src={'/images/libecity/libecity_fukuoka_logo.svg'}
+            width="143.29"
+            height="50"
+            alt="リベシティロゴ"
+          />
+        ) : (
+          <img
+            src={'/images/libecity/libecity_logo.png'}
+            height="50"
+            width={'237.26'}
+            alt="リベシティロゴ"
+          />
+        )}
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
           <ul className="mt-4 flex flex-col md:mt-0 md:flex-row md:space-x-8 md:border-0 md:text-sm md:font-medium">
             {/* <LinkComponent

@@ -4,6 +4,7 @@ export type Event = {
   date: string
   time: string
   location: string
+  prefectures: string
   organizer: string
   people: number
   request: number
