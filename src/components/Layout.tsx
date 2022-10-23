@@ -3,7 +3,6 @@ import 'react-toastify/dist/ReactToastify.css'
 import { FC, ReactNode } from 'react'
 import Footer from './Footer'
 import Header from './Header'
-// import Notification from '../utils/notification/notification'
 
 type Props = {
   children: ReactNode
@@ -18,7 +17,6 @@ const Layout: FC<Props> = ({ children }) => {
         {children}
       </main>
       <Footer />
-      {/* <Notification /> */}
       <ToastContainer />
     </div>
   )
