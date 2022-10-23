@@ -174,7 +174,9 @@ const EventCalendar: FC<Props> = ({ status }) => {
                       </p>
                       <p className="flex flex-col text-sm text-gray-600">
                         <span className="mb-1 font-semibold">備考</span>
-                        <span className="pl-1 text-sm">{value.comment}</span>
+                        <span className="text-smwhitespace-pre-line whitespace-pre-line pl-1">
+                          {value.comment}
+                        </span>
                       </p>
                     </li>
                   )

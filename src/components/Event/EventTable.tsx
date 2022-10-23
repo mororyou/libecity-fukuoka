@@ -160,7 +160,9 @@ const EventDetailComponent: FC<EventDetailProps> = ({ data, onClickEvent }) => {
                   <dt className="w-28 bg-themeDetailBgColor py-[10px] px-4 text-xs font-semibold md:w-[216px] md:px-8">
                     {label}
                   </dt>
-                  <dd className="py-2 pl-2 text-xs">{value as string}</dd>
+                  <dd className="whitespace-pre-line py-2 pl-2 text-xs">
+                    {value as string}
+                  </dd>
                 </dl>
               )
           }
