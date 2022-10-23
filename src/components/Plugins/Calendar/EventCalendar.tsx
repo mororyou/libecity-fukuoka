@@ -13,9 +13,10 @@ import { groupBy } from '../../../libs/utils'
 
 type Props = {
   status: string
+  prefectures: string
 }
 
-const EventCalendar: FC<Props> = ({ status }) => {
+const EventCalendar: FC<Props> = ({ status, prefectures }) => {
   const [day, setDay] = useState({
     date: '',
     count: 0,
@@ -32,7 +33,7 @@ const EventCalendar: FC<Props> = ({ status }) => {
 
   const getDayEventHandler = async (date: string) => {
     try {
-      const res = await getDayEvents(date, status)
+      const res = await getDayEvents(date, status, prefectures)
       const d = new Date(date)
       const formatDate = format(d, 'yyyy年M月d日(E)', { locale: ja })
       await setDay({
@@ -62,7 +63,12 @@ const EventCalendar: FC<Props> = ({ status }) => {
     try {
       const startDate = await format(arg.start, 'yyyy-MM-dd')
       const endDate = await format(arg.end, 'yyyy-MM-dd')
-      const res = await getCalendarEvents(startDate, endDate, status)
+      const res = await getCalendarEvents(
+        startDate,
+        endDate,
+        status,
+        prefectures
+      )
       const result = (await res.data) as Array<[]>
       const calendar = await groupBy(result, 'date')
       successCallback(
