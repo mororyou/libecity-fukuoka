@@ -14,9 +14,10 @@ import EventCalendar from '../Plugins/Calendar/EventCalendar'
 
 type Props = {
   prefectures: string
+  prefecturesName: string
 }
 
-const EventPage: FC<Props> = ({ prefectures }) => {
+const EventPage: FC<Props> = ({ prefectures, prefecturesName }) => {
   const [values, setValues] = useState(eventInitialState)
   // Event
   const [events, setEvents] = useState([])
@@ -155,9 +156,9 @@ const EventPage: FC<Props> = ({ prefectures }) => {
 
   return (
     <Layout>
-      <MainTitle span="オフ会一覧" />
+      <MainTitle span={`${prefecturesName} オフ会一覧`} />
       <Title
-        title="オフ会一覧情報"
+        title={`${prefecturesName} オフ会一覧情報`}
         component={<EventAddBtn onClick={handleOpen} />}
       />
       <EventAddDialog
