@@ -158,7 +158,7 @@ const EventPage: FC<Props> = ({ prefectures, prefecturesName }) => {
     <Layout>
       <MainTitle span={`${prefecturesName} オフ会一覧`} />
       <Title
-        title={`${prefecturesName} オフ会一覧情報`}
+        title={`オフ会一覧情報`}
         component={<EventAddBtn onClick={handleOpen} />}
       />
       <EventAddDialog
