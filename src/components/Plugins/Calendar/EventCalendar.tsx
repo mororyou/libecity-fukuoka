@@ -136,6 +136,7 @@ const EventCalendar: FC<Props> = ({ status, prefectures }) => {
             {day.count > 0 ? (
               <>
                 {Object.values(day.events).map((value: any) => {
+                  console.log(value)
                   return (
                     <li
                       className="flex w-full flex-wrap gap-y-2 border-b border-themeMainColor border-opacity-40 py-4 md:gap-y-2"
@@ -143,6 +144,10 @@ const EventCalendar: FC<Props> = ({ status, prefectures }) => {
                     >
                       <p className="w-full font-mono font-black text-themeMainColor">
                         {value.title ? value.title : '未設定'}
+                      </p>
+                      <p className="w-full text-sm text-gray-600 md:w-7/12">
+                        <span className="font-semibold">時間帯：</span>
+                        {value.time ? value.time : '未設定'}
                       </p>
                       <p className="w-full text-sm text-gray-600 md:w-7/12">
                         <span className="font-semibold">コミュニティ：</span>
