@@ -2,7 +2,7 @@ import { NextPage } from 'next'
 import Head from 'next/head'
 import EventPage from '../components/Event/EventPage'
 
-const Urikata: NextPage = () => (
+const Ibaraki: NextPage = () => (
   <>
     <Head>
       <title>リベシティ　茨城支部イベント管理</title>
@@ -11,4 +11,4 @@ const Urikata: NextPage = () => (
   </>
 )
 
-export default Urikata
+export default Ibaraki
