@@ -43,3 +43,12 @@ export type ErrorTable = {
   complete_flg: boolean
   created_at: string
 }
+
+export type Movie = {
+  id: string
+  videoId: string
+  title: string
+  channelId: string
+  snippet: any
+  publishedAt: string
+}
