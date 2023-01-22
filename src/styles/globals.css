@@ -9,7 +9,7 @@ body {
 .navilink {
   transition: ease 0.2s;
   text-decoration: none;
-  @apply relative flex h-[46px] w-[200px] cursor-pointer  items-center justify-center overflow-hidden border border-solid border-white text-center outline-none;
+  @apply relative flex h-[46px] w-[120px] cursor-pointer  items-center justify-center overflow-hidden border border-solid border-white text-center outline-none;
 }
 
 .navilink span {
@@ -38,7 +38,7 @@ body {
 }
 
 .navilink_active {
-  @apply flex h-[46px] w-[200px] items-center justify-center rounded-[3px] border border-solid border-white bg-white font-semibold text-themeMainColor;
+  @apply flex h-[46px] w-[120px] items-center justify-center rounded-[3px] border border-solid border-white bg-white font-semibold text-themeMainColor;
 }
 
 .border-title {

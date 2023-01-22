@@ -7,6 +7,7 @@ import Styles from './Header.module.css'
 const Header = () => {
   const router = useRouter()
   const asPath = router.asPath
+  const backFunc = router.back
   return (
     <nav className={Styles.header}>
       <div className="mx-auto flex flex-wrap items-center justify-between">
@@ -20,19 +21,19 @@ const Header = () => {
         ) : (
           <img
             src={'/images/libecity/libecity_logo.png'}
-            height="50"
-            width={'237.26'}
+            width={'143'}
+            height="30"
             alt="リベシティロゴ"
           />
         )}
-        <div className="hidden w-full md:block md:w-auto" id="navbar-default">
+        <div className="" id="navbar-default">
           <ul className="mt-4 flex flex-col md:mt-0 md:flex-row md:space-x-8 md:border-0 md:text-sm md:font-medium">
-            {/* <LinkComponent
-              href="/dashboard"
-              span="ダッシュボード"
+            <LinkComponent
+              href="/movies"
+              span="学長動画検索"
               asPath={asPath}
-            /> */}
-            {/* <LinkComponent href="/events" span="オフ会一覧" asPath={asPath} /> */}
+              backFunc={backFunc}
+            />
           </ul>
         </div>
       </div>
@@ -46,11 +47,21 @@ type LinkProps = {
   href: string
   span: string
   asPath: string
+  backFunc: () => void | null
 }
 
-const LinkComponent: FC<LinkProps> = ({ href, span, asPath }) => {
+const LinkComponent: FC<LinkProps> = ({ href, span, asPath, backFunc }) => {
   if (href === asPath) {
-    return <li className="navilink_active">{span}</li>
+    return (
+      <button
+        alia-label="戻る"
+        type="button"
+        onClick={backFunc}
+        className="rounded-md border-white bg-blue-700 py-2 px-8 text-white shadow-sm hover:bg-opacity-40"
+      >
+        戻る
+      </button>
+    )
   } else {
     return (
       <Link href={href}>
